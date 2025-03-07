@@ -9,7 +9,7 @@ function toggleSidebar() {
 
 function toggleSubMenu(button) {
   if (!button.nextElementSibling.classList.contains("show")) {
-    closeAllSubMenus;
+    closeAllSubMenus();
   }
 
   button.nextElementSibling.classList.toggle("show");

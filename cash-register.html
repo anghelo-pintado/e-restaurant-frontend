@@ -1,0 +1,25 @@
+<div class="register-container">
+  <h2>Gestión de Cajas</h2>
+  <p>Selecciona una caja para aperturar o acceder a sus operaciones.</p>
+
+  <div class="registers-grid">
+    <!-- Aquí se generarán dinámicamente las cajas -->
+  </div>
+
+  <!-- Modal para aperturar caja -->
+  <div class="modal-overlay" id="modalOverlay">
+    <div class="modal-content">
+      <h3>Aperturar Caja</h3>
+      <label for="pettyCash">Caja chica</label>
+      <input type="number" id="pettyCash" placeholder="Monto de caja chica" />
+
+      <label for="comment">Comentario</label>
+      <textarea id="comment" placeholder="Alguna observación..."></textarea>
+
+      <div class="modal-buttons">
+        <button id="cancelButton">Cancelar</button>
+        <button id="saveButton">Aperturar</button>
+      </div>
+    </div>
+  </div>
+</div>
