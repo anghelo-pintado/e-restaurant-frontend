@@ -147,17 +147,7 @@ body {
 }
 
 main {
-    padding: min(30px, 7%);
-}
-
-main p {
-    color: var(--secondary-text-clr);
-    margin-top: 5px;
-    margin-bottom: 15px;
-}
-
-.container {
-    padding: 0;
+    padding: 30px 0px 0px 30px;
 }
 
 
@@ -168,11 +158,6 @@ main p {
 
     main {
         padding: 2em 1em 60px 1em;
-    }
-
-    .container {
-        border: none;
-        padding: 0;
     }
 
     #sidebar {

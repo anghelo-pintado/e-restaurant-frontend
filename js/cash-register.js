@@ -1,4 +1,3 @@
-// DATA
 const registerData = [
   { id: "1", title: "Principal", description: "Centro Comercial" },
   { id: "2", title: "Secundaria", description: "Plaza Central" },
@@ -32,6 +31,20 @@ function initCashRegister() {
   const saveButton = document.getElementById("saveButton");
   const pettyCashInput = document.getElementById("pettyCash");
   const commentInput = document.getElementById("comment");
+  const openDateInput = document.getElementById("openDate");
+
+  if (openDateInput) {
+    const today = new Date();
+    const formattedDate = formatDate(today);
+
+    const minDate = new Date();
+    minDate.setDate(minDate.getDate() - 3);
+    const formattedMinDate = formatDate(minDate);
+
+    openDateInput.max = formattedDate;
+    openDateInput.min = formattedMinDate;
+    openDateInput.value = formattedDate;
+  }
 
   console.log("Elementos encontrados:", {
     registersGrid: !!registersGrid,
@@ -61,7 +74,8 @@ function initCashRegister() {
     registerCard.innerHTML = `
         <div class="register-title">Caja ${register.title}</div>
         <div class="register-branch">Sucursal: ${register.description}</div>
-        
+        <div class="register-divider"></div>
+        <div class="register-sales">Suma de venta: S/ 3,200.00</div>
       `;
 
     // Agrega el evento click
@@ -120,6 +134,10 @@ function initCashRegister() {
         localStorage.setItem(`pettyCash_${currentRegisterId}`, pettyCash);
         localStorage.setItem(`comment_${currentRegisterId}`, comment);
         localStorage.setItem(
+          `openDate_${currentRegisterId}`,
+          openDateInput.value
+        );
+        localStorage.setItem(
           `title_${currentRegisterId}`,
           currentRegisterTitle
         );
@@ -153,4 +171,12 @@ if (
 ) {
   console.log("Documento ya cargado, inicializando directamente");
   initCashRegister();
+}
+
+// Función auxiliar para formatear fechas como YYYY-MM-DD
+function formatDate(date) {
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, "0");
+  const day = String(date.getDate()).padStart(2, "0");
+  return `${year}-${month}-${day}`;
 }
