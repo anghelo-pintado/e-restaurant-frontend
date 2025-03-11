@@ -1,8 +1,19 @@
 const registerData = [
-  { id: "1", title: "Principal", description: "Centro Comercial" },
-  { id: "2", title: "Secundaria", description: "Plaza Central" },
-  { id: "3", title: "Express", description: "Sucursal Norte" },
-  { id: "4", title: "Vip", description: "Sucursal Sur" },
+  { idCaja: "1", Nombre: "Principal", Estado: "1", idSucursal: "1" },
+  { idCaja: "2", Nombre: "Secundaria", Estado: "1", idSucursal: "2" },
+  { idCaja: "3", Nombre: "Express", Estado: "1", idSucursal: "3" },
+  { idCaja: "4", Nombre: "Vip", Estado: "2", idSucursal: "4" },
+];
+
+const branchData = [
+  {
+    idSucursal: "1",
+    Nombre: "Centro Comercial",
+    Direccion: "Av. Principal 123",
+  },
+  { idSucursal: "2", Nombre: "Plaza Central", Direccion: "Av. Secundaria 456" },
+  { idSucursal: "3", Nombre: "Sucursal Norte", Direccion: "Av. Norte 789" },
+  { idSucursal: "4", Nombre: "Sucursal Sur", Direccion: "Av. Sur 012" },
 ];
 
 console.log("Script de cajas cargado");
@@ -15,6 +26,17 @@ document.addEventListener("DOMContentLoaded", function () {
   console.log("DOM cargado en cash-register.js");
   initCashRegister();
 });
+
+function initDashboard(id, pettyCash, title) {
+  document.getElementById(
+    "dashboardTitle"
+  ).textContent = `Dashboard de Caja ${title}`;
+  document.getElementById("registerName").textContent = title;
+  document.getElementById("initialAmount").textContent = pettyCash;
+
+  // Aquí puedes agregar más lógica para inicializar el dashboard
+  console.log("Dashboard inicializado para la caja:", title);
+}
 
 // Esta función también se puede llamar directamente en caso de que el DOM ya esté cargado
 function initCashRegister() {
@@ -61,19 +83,24 @@ function initCashRegister() {
     console.log("Generando caja:", register);
 
     // Verifica si la caja ya está aperturada
-    const savedPettyCash = localStorage.getItem(`pettyCash_${register.id}`);
-    const isOpen = savedPettyCash ? true : false;
+    const isOpen = register.Estado == "1" ? true : false;
 
     // Crea el elemento de la caja
     const registerCard = document.createElement("div");
     registerCard.className = `register-card ${isOpen ? "open" : ""}`;
-    registerCard.dataset.id = register.id;
-    registerCard.dataset.title = register.title;
-    registerCard.dataset.description = register.description;
+    registerCard.dataset.idCaja = register.idCaja;
+    registerCard.dataset.Nombre = register.Nombre;
+    registerCard.dataset.Estado = register.Estado;
+    registerCard.dataset.Sucursal = branchData.find(
+      (branch) => branch.idSucursal === register.idSucursal
+    ).Nombre;
 
     registerCard.innerHTML = `
-        <div class="register-title">Caja ${register.title}</div>
-        <div class="register-branch">Sucursal: ${register.description}</div>
+        <div class="register-title">Caja ${register.Nombre}</div>
+        <div class="register-branch">Sucursal: ${
+          branchData.find((branch) => branch.idSucursal === register.idSucursal)
+            .Nombre
+        }</div>
         <div class="register-divider"></div>
         <div class="register-sales">Suma de venta: S/ 3,200.00</div>
       `;
@@ -82,8 +109,8 @@ function initCashRegister() {
     registerCard.addEventListener("click", function () {
       console.log("Caja clickeada:", this.dataset.title);
 
-      const id = this.dataset.id;
-      const title = this.dataset.title;
+      const id = this.dataset.idCaja;
+      const title = this.dataset.Nombre;
       const isCardOpen = this.classList.contains("open");
 
       if (!isCardOpen) {
@@ -96,7 +123,15 @@ function initCashRegister() {
         // Si ya está aperturada, redirigimos al dashboard
         const pettyCash = localStorage.getItem(`pettyCash_${id}`);
         console.log("Redirigiendo al dashboard de caja:", title);
-        window.location.href = `dashboard.html?id=${id}&pettyCash=${pettyCash}&title=${title}`;
+        $("#main").load("dashboard.html", function (response, status, xhr) {
+          if (status == "success") {
+            initDashboard(id, pettyCash, title);
+          } else {
+            $("#main").html(
+              "<p>Lo sentimos, ocurrió un error al cargar el dashboard.</p>"
+            );
+          }
+        });
       }
     });
 

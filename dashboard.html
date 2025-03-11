@@ -1,12 +1,93 @@
-<div class="dashboard-container">
-  <h2 id="dashboardTitle">Dashboard de Caja</h2>
-  <div class="dashboard-info">
-    <div class="info-card">
-      <h3>Información de la Caja</h3>
-      <p>Caja: <span id="registerName"></span></p>
-      <p>Monto Inicial: $<span id="initialAmount"></span></p>
+<div class="dashboard-main">
+  <div class="card card-1">
+    <div class="card-header">
+      <div class="card-icon"></div>
+      <span class="card-percentaje">12</span>
     </div>
-    <!-- Aquí puedes agregar más contenido del dashboard -->
+    <div class="card-value">S/ 12,000.00</div>
+    <div class="card-name">Caja Chica</div>
+  </div>
+
+  <div class="card card-2">
+    <div class="card-header">
+      <div class="card-icon"></div>
+      <span class="card-percentaje">12</span>
+    </div>
+    <div class="card-value">S/ 12,000.00</div>
+    <div class="card-name">Ingresos Totales</div>
+  </div>
+
+  <div class="card card-3">
+    <div class="card-header">
+      <div class="card-icon"></div>
+      <span class="card-percentaje">12</span>
+    </div>
+    <div class="card-value">S/ 12,000.00</div>
+    <div class="card-name">Egresos Totales</div>
+  </div>
+
+  <div class="card card-4">
+    <div class="card-header">
+      <div class="card-icon"></div>
+      <span class="card-percentaje">12</span>
+    </div>
+    <div class="card-value">S/ 12,000.00</div>
+    <div class="card-name">Dinero Contado</div>
+  </div>
+
+  <div class="card card-5">
+    <div class="card-header">
+      <div class="card-icon"></div>
+      <span class="card-percentaje">12</span>
+    </div>
+    <div class="card-value">S/ 12,000.00</div>
+    <div class="card-name">Diferencia</div>
+  </div>
+
+  <div class="card card-6">
+    <div class="card-header">
+      <div class="card-icon"></div>
+      <span class="card-title">Resumen de Ventas</span>
+    </div>
+    <div class="card-value">S/ 12,000.00</div>
+    <div class="chart">
+      <canvas id="my-chart"></canvas>
+    </div>
+  </div>
+
+  <div class="card card-7">
+    <div class="card-header">
+      <div class="card-icon"></div>
+      <div class="card-title">Total de Clientes</div>
+    </div>
+    <div class="card-value">150 clientes</div>
+  </div>
+
+  <div class="card card-8">
+    <div class="card-header">
+      <div class="card-icon"></div>
+      <span class="card-title">Arqueo de Caja</span>
+    </div>
+    <div class="input-group">
+      <div class="card-input">
+        <input type="number" step="0.10" placeholder="0.00" />
+        <label>Total Sencillo</label>
+      </div>
+      <div class="card-input">
+        <input type="number" step="10" placeholder="0" />
+        <label>Total Billetes</label>
+      </div>
+      <div class="card-input">
+        <div id="difference" class="output-field">0.00</div>
+        <label>Diferencia</label>
+      </div>
+    </div>
+  </div>
+
+  <div class="card card-9">
+    <h2>botones</h2>
+    <h2>botones</h2>
+    <h2>botones</h2>
   </div>
 </div>
 
