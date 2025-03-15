@@ -1,10 +1,18 @@
+<div class="dashboard-header">
+  <button id="btn-exit">Salir</button>
+  <div>
+    <div id="dashboard-title" class="title">Caja</div>
+    <div id="current-time-dashboard" class="sub-text">Dia actual</div>
+  </div>
+</div>
+<div class="divider"></div>
 <div class="dashboard-main">
   <div class="card card-1">
     <div class="card-header">
       <div class="card-icon"></div>
       <span class="card-percentaje">12</span>
     </div>
-    <div class="card-value">S/ 12,000.00</div>
+    <div class="card-value" id="initial-amount">S/ 0.00</div>
     <div class="card-name">Caja Chica</div>
   </div>
 
@@ -13,7 +21,7 @@
       <div class="card-icon"></div>
       <span class="card-percentaje">12</span>
     </div>
-    <div class="card-value">S/ 12,000.00</div>
+    <div class="card-value" id="total-income">S/ 0.00</div>
     <div class="card-name">Ingresos Totales</div>
   </div>
 
@@ -22,7 +30,7 @@
       <div class="card-icon"></div>
       <span class="card-percentaje">12</span>
     </div>
-    <div class="card-value">S/ 12,000.00</div>
+    <div class="card-value" id="total-expenses">S/ 0.00</div>
     <div class="card-name">Egresos Totales</div>
   </div>
 
@@ -31,7 +39,7 @@
       <div class="card-icon"></div>
       <span class="card-percentaje">12</span>
     </div>
-    <div class="card-value">S/ 12,000.00</div>
+    <div class="card-value" id="cash">S/ 0.00</div>
     <div class="card-name">Dinero Contado</div>
   </div>
 
@@ -40,7 +48,7 @@
       <div class="card-icon"></div>
       <span class="card-percentaje">12</span>
     </div>
-    <div class="card-value">S/ 12,000.00</div>
+    <div class="card-value" id="difference">S/ 0.00</div>
     <div class="card-name">Diferencia</div>
   </div>
 
@@ -49,9 +57,9 @@
       <div class="card-icon"></div>
       <span class="card-title">Resumen de Ventas</span>
     </div>
-    <div class="card-value">S/ 12,000.00</div>
+    <div class="card-value" id="sales-summary">S/ 0.00</div>
     <div class="chart">
-      <canvas id="my-chart"></canvas>
+      <canvas id="my-pie-chart"></canvas>
     </div>
   </div>
 
@@ -60,7 +68,8 @@
       <div class="card-icon"></div>
       <div class="card-title">Total de Clientes</div>
     </div>
-    <div class="card-value">150 clientes</div>
+    <div class="card-value" id="total-customer">0 clientes</div>
+    <canvas id="my-bar-chart"></canvas>
   </div>
 
   <div class="card card-8">
@@ -77,7 +86,7 @@
         <input type="number" step="10" placeholder="0" />
         <label>Total Billetes</label>
       </div>
-      <div class="card-input">
+      <div class="card-output">
         <div id="difference" class="output-field">0.00</div>
         <label>Diferencia</label>
       </div>
@@ -85,24 +94,16 @@
   </div>
 
   <div class="card card-9">
-    <h2>botones</h2>
-    <h2>botones</h2>
-    <h2>botones</h2>
+    <button class="button button-1">Guardar Cuadre</button>
+    <button class="button button-2">Imprimir Ticket</button>
+    <button class="button button-3">Cerrar Caja</button>
   </div>
 </div>
 
 <script>
-  // Script para obtener parámetros de la URL
-  document.addEventListener("DOMContentLoaded", function () {
-    const params = new URLSearchParams(window.location.search);
-    const id = params.get("id");
-    const pettyCash = params.get("pettyCash");
-    const title = params.get("title");
-
-    document.getElementById(
-      "dashboardTitle"
-    ).textContent = `Dashboard de Caja ${title}`;
-    document.getElementById("registerName").textContent = title;
-    document.getElementById("initialAmount").textContent = pettyCash;
+  const btnExit = document.getElementById("btn-exit");
+  btnExit.addEventListener("click", function () {
+    console.log("l");
+    window.location.assign("index.html");
   });
 </script>

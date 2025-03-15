@@ -28,6 +28,31 @@ body {
     grid-template-columns: auto 1fr;
 }
 
+.divider {
+    width: 100%;
+    height: 1.5px;
+    background-color: #989ca9;
+    margin: 24px 0;
+}
+
+.title {
+    color: #000005;
+    font-family: Delm;
+    font-size: 40px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.sub-text {
+    color: #6A6E7A;
+    font-family: Roboto;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
 #sidebar {
     box-sizing: border-box;
     height: 100vh;

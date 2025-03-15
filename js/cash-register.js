@@ -3,6 +3,7 @@ const registerData = [
   { idCaja: "2", Nombre: "Secundaria", Estado: "1", idSucursal: "2" },
   { idCaja: "3", Nombre: "Express", Estado: "1", idSucursal: "3" },
   { idCaja: "4", Nombre: "Vip", Estado: "2", idSucursal: "4" },
+  { idCaja: "5", Nombre: "Exclusivo", Estado: "1", idSucursal: "5" },
 ];
 
 const branchData = [
@@ -14,6 +15,29 @@ const branchData = [
   { idSucursal: "2", Nombre: "Plaza Central", Direccion: "Av. Secundaria 456" },
   { idSucursal: "3", Nombre: "Sucursal Norte", Direccion: "Av. Norte 789" },
   { idSucursal: "4", Nombre: "Sucursal Sur", Direccion: "Av. Sur 012" },
+  { idSucursal: "5", Nombre: "Sucursal Oeste", Direccion: "Av. Sur 013" },
+];
+
+const dashboardData = [
+  {
+    idDashboard: "1",
+    cajaChica: 1000,
+    ingresosTotales: 5000,
+    egresosTotales: 2000,
+    dineroContado: 3800,
+    diferencia: 1000 + 5000 - 2000 - 3800,
+    resumenVentas: {
+      factura: { totalMonto: 3000, cantidad: 10 },
+      boleta: { totalMonto: 1500, cantidad: 8 },
+      ventasCanceladas: { cantidad: 2 },
+    },
+    totalClientes: 50,
+    arqueoCaja: {
+      billetes: 3500,
+      monedas: 300,
+      diferencia: 1000 + 5000 - 2000 - (3500 + 300),
+    },
+  },
 ];
 
 console.log("Script de cajas cargado");
@@ -27,20 +51,93 @@ document.addEventListener("DOMContentLoaded", function () {
   initCashRegister();
 });
 
-function initDashboard(id, pettyCash, title) {
+function initDashboard(id, pettyCash, title, data) {
+  document.getElementById("dashboard-title").textContent = `Caja ${title}`;
+  document.getElementById("current-time-dashboard").textContent =
+    formatDateLong();
+  document.getElementById("initial-amount").textContent = formatCurrency(
+    data.cajaChica
+  );
+  document.getElementById("total-income").textContent = formatCurrency(
+    data.ingresosTotales
+  );
+  document.getElementById("total-expenses").textContent = formatCurrency(
+    data.egresosTotales
+  );
+  document.getElementById("cash").textContent = formatCurrency(
+    data.dineroContado
+  );
+  document.getElementById("cash").textContent = formatCurrency(
+    data.dineroContado
+  );
+  document.getElementById("difference").textContent = formatCurrency(
+    data.diferencia
+  );
+  document.getElementById("sales-summary").textContent = formatCurrency(
+    data.resumenVentas.factura.totalMonto + data.resumenVentas.boleta.totalMonto
+  );
   document.getElementById(
-    "dashboardTitle"
-  ).textContent = `Dashboard de Caja ${title}`;
-  document.getElementById("registerName").textContent = title;
-  document.getElementById("initialAmount").textContent = pettyCash;
+    "total-customer"
+  ).textContent = `${data.totalClientes} clientes`;
+  // Datos para el grafico pastel
+  const ctx = document.getElementById("my-pie-chart").getContext("2d");
+  const miGrafico = new Chart(ctx, {
+    type: "pie",
+    data: {
+      labels: ["Factura", "Boleta"],
+      datasets: [
+        {
+          label: "Ventas",
+          data: [
+            data.resumenVentas.factura.totalMonto,
+            data.resumenVentas.boleta.totalMonto,
+          ],
+          backgroundColor: [
+            "rgba(255, 99, 132, 0.2)",
+            "rgba(54, 162, 235, 0.2)",
+          ],
+          borderColor: ["rgba(255, 99, 132, 1)", "rgba(54, 162, 235, 1)"],
+          borderWidth: 1,
+        },
+      ],
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false, // Permite que el gráfico se ajuste mejor
+    },
+  });
 
-  // Aquí puedes agregar más lógica para inicializar el dashboard
+  // Datos para el grafico de barras
+  const context = document.getElementById("my-bar-chart");
+  new Chart(context, {
+    type: "bar",
+    data: {
+      labels: ["Lun", "Mar", "Mie", "Jue", "Vie", "Sab", "Dom"],
+      datasets: [
+        {
+          label: "# de clientes",
+          data: [12, 19, 3, 5, 2, 3, 8],
+          borderWidth: 1,
+        },
+      ],
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true,
+        },
+      },
+    },
+  });
+
   console.log("Dashboard inicializado para la caja:", title);
 }
 
-// Esta función también se puede llamar directamente en caso de que el DOM ya esté cargado
+// Genera las cajas dinamicamente
 function initCashRegister() {
   console.log("Inicializando registro de caja");
+
+  document.getElementById("current-time-cash").textContent = formatDateLong();
 
   const registersGrid = document.querySelector(".registers-grid");
   if (!registersGrid) {
@@ -54,6 +151,8 @@ function initCashRegister() {
   const pettyCashInput = document.getElementById("pettyCash");
   const commentInput = document.getElementById("comment");
   const openDateInput = document.getElementById("openDate");
+
+  console.log(`Hola ${openDateInput}`);
 
   if (openDateInput) {
     const today = new Date();
@@ -105,13 +204,14 @@ function initCashRegister() {
         <div class="register-sales">Suma de venta: S/ 3,200.00</div>
       `;
 
-    // Agrega el evento click
     registerCard.addEventListener("click", function () {
-      console.log("Caja clickeada:", this.dataset.title);
+      console.log("Caja clickeada:", this.dataset.Nombre);
 
       const id = this.dataset.idCaja;
       const title = this.dataset.Nombre;
       const isCardOpen = this.classList.contains("open");
+
+      console.log(id, title, isCardOpen);
 
       if (!isCardOpen) {
         // Si la caja está cerrada, mostramos el modal para aperturarla
@@ -125,7 +225,8 @@ function initCashRegister() {
         console.log("Redirigiendo al dashboard de caja:", title);
         $("#main").load("dashboard.html", function (response, status, xhr) {
           if (status == "success") {
-            initDashboard(id, pettyCash, title);
+            const data = dashboardData.find((e) => e.idDashboard === `${id}`);
+            initDashboard(id, pettyCash, title, data);
           } else {
             $("#main").html(
               "<p>Lo sentimos, ocurrió un error al cargar el dashboard.</p>"
@@ -182,7 +283,7 @@ function initCashRegister() {
 
         // Actualizar la interfaz
         const registerCard = document.querySelector(
-          `.register-card[data-id="${currentRegisterId}"]`
+          `.register-card[data-idCaja="${currentRegisterId}"]`
         );
         registerCard.classList.add("open");
         registerCard.querySelector(
@@ -214,4 +315,28 @@ function formatDate(date) {
   const month = String(date.getMonth() + 1).padStart(2, "0");
   const day = String(date.getDate()).padStart(2, "0");
   return `${year}-${month}-${day}`;
+}
+
+// Función auxiliar para formatear los montos a moneda peruana
+function formatCurrency(value) {
+  return value.toLocaleString("es-PE", {
+    style: "currency",
+    currency: "PEN",
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  });
+}
+
+// Función auxiliar para formatear la fecha actual
+function formatDateLong() {
+  const date = new Date();
+  const options = {
+    weekday: "long",
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+    localeMatcher: "best fit",
+  };
+
+  return new Intl.DateTimeFormat("es-ES", options).format(date);
 }

@@ -120,19 +120,23 @@
           } else {
             // Verificar qué página se cargó
             if (url === "cash-register.html") {
-              // Remover cualquier script anterior para evitar duplicación
-              $("script[src='js/cash-register.js']").remove();
-
-              // Cargar el script con jQuery para mejor compatibilidad
-              $.getScript("js/cash-register.js")
-                .done(function () {
-                  console.log(
-                    "Script de caja registradora cargado correctamente"
-                  );
-                })
-                .fail(function (jqxhr, settings, exception) {
-                  console.error("Error al cargar el script: " + exception);
-                });
+              if (!window.cashRegisterScriptLoaded) {
+                $.getScript("js/cash-register.js")
+                  .done(function () {
+                    window.cashRegisterScriptLoaded = true;
+                    console.log(
+                      "Script de caja registradora cargado correctamente"
+                    );
+                  })
+                  .fail(function (jqxhr, settings, exception) {
+                    console.error("Error al cargar el script: " + exception);
+                  });
+              } else {
+                console.log("El script ya se encuentra cargado.");
+                if (typeof initCashRegister === "function") {
+                  initCashRegister();
+                }
+              }
             }
           }
         });

@@ -3,6 +3,12 @@
     gap: 1em;
 }
 
+.dashboard-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
 .card {
     padding: 1em;
     min-block-size: 7em;
@@ -27,6 +33,15 @@
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+.card .card-header .card-title {
+    color: #000005;
+    font-family: Delm;
+    font-size: 28px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
 }
 
 .card .card-header .card-percentaje {
@@ -116,6 +131,33 @@
 .card-8 .input-group .card-input input:focus {
     outline: none;
     border-color: #5347cd;
+}
+
+.button {
+    border-radius: 10px;
+    min-height: 65px;
+    border: 3px solid #ebedec;
+    cursor: pointer;
+    transition: all 0.3s;
+    font-family: 'Delm', sans-serif;
+    font-size: 21px;
+    color: #FFFFFF;
+}
+
+.button:hover {
+    opacity: 0.9;
+}
+
+.button-1 {
+    background: #28A745;
+}
+
+.button-2 {
+    background: #FFC107;
+}
+
+.button-3 {
+    background: #DC3545;
 }
 
 
