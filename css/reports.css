@@ -4,7 +4,8 @@
 }
 
 .report {
-    display: grid; 
+    display: flex;
+    align-items: flex-end;
     align-content: end;
     justify-items: start;
     padding: 1em;
@@ -23,7 +24,28 @@
     transform: scale(1.02);
 }
 
-.report .report-title {
+.report .report-content {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.report .report-content .report-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.report .report-content .report-icon img {
+    height: 35px;
+    width: 35px;
+}
+
+.report .report-content .report-text {
+    display: grid;
+    gap: 0.5rem;
+}
+
+.report .report-content .report-text .report-title {
     color: #000005;
     font-family: Delm;
     font-size: 40px;
@@ -32,7 +54,7 @@
     line-height: normal;
 }
 
-.report .report-description {
+.report .report-content .report-text .report-description {
     color: #282A2C;
     font-family: Roboto;
     font-size: 17px;

@@ -1,5 +1,10 @@
 <div class="dashboard-header">
-  <button id="btn-exit">Salir</button>
+  <button id="btn-exit">
+    <img
+      src="assets/icons/keyboard_arrow_left_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.svg"
+      alt="Salir"
+    />
+  </button>
   <div>
     <div id="dashboard-title" class="title">Caja</div>
     <div id="current-time-dashboard" class="sub-text">Dia actual</div>
@@ -9,7 +14,9 @@
 <div class="dashboard-main">
   <div class="card card-1">
     <div class="card-header">
-      <div class="card-icon"></div>
+      <div class="card-icon">
+        <span class="material-icons dashboard-icon">savings</span>
+      </div>
       <span class="card-percentaje">12</span>
     </div>
     <div class="card-value" id="initial-amount">S/ 0.00</div>
@@ -18,7 +25,9 @@
 
   <div class="card card-2">
     <div class="card-header">
-      <div class="card-icon"></div>
+      <div class="card-icon">
+        <span class="material-icons dashboard-icon">monetization_on</span>
+      </div>
       <span class="card-percentaje">12</span>
     </div>
     <div class="card-value" id="total-income">S/ 0.00</div>
@@ -27,7 +36,9 @@
 
   <div class="card card-3">
     <div class="card-header">
-      <div class="card-icon"></div>
+      <div class="card-icon">
+        <span class="material-icons dashboard-icon">money_off</span>
+      </div>
       <span class="card-percentaje">12</span>
     </div>
     <div class="card-value" id="total-expenses">S/ 0.00</div>
@@ -36,7 +47,9 @@
 
   <div class="card card-4">
     <div class="card-header">
-      <div class="card-icon"></div>
+      <div class="card-icon">
+        <span class="material-icons dashboard-icon">local_atm</span>
+      </div>
       <span class="card-percentaje">12</span>
     </div>
     <div class="card-value" id="cash">S/ 0.00</div>
@@ -45,7 +58,9 @@
 
   <div class="card card-5">
     <div class="card-header">
-      <div class="card-icon"></div>
+      <div class="card-icon">
+        <span class="material-icons dashboard-icon">calculate</span>
+      </div>
       <span class="card-percentaje">12</span>
     </div>
     <div class="card-value" id="difference">S/ 0.00</div>
@@ -54,7 +69,9 @@
 
   <div class="card card-6">
     <div class="card-header">
-      <div class="card-icon"></div>
+      <div class="card-icon">
+        <span class="material-icons dashboard-icon">summarize</span>
+      </div>
       <span class="card-title">Resumen de Ventas</span>
     </div>
     <div class="card-value" id="sales-summary">S/ 0.00</div>
@@ -65,7 +82,9 @@
 
   <div class="card card-7">
     <div class="card-header">
-      <div class="card-icon"></div>
+      <div class="card-icon">
+        <span class="material-icons dashboard-icon">group</span>
+      </div>
       <div class="card-title">Total de Clientes</div>
     </div>
     <div class="card-value" id="total-customer">0 clientes</div>
@@ -74,7 +93,11 @@
 
   <div class="card card-8">
     <div class="card-header">
-      <div class="card-icon"></div>
+      <div class="card-icon">
+        <span class="material-icons dashboard-icon"
+          >account_balance_wallet</span
+        >
+      </div>
       <span class="card-title">Arqueo de Caja</span>
     </div>
     <div class="input-group">
@@ -103,7 +126,6 @@
 <script>
   const btnExit = document.getElementById("btn-exit");
   btnExit.addEventListener("click", function () {
-    console.log("l");
     window.location.assign("index.html");
   });
 </script>

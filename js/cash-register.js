@@ -38,6 +38,82 @@ const dashboardData = [
       diferencia: 1000 + 5000 - 2000 - (3500 + 300),
     },
   },
+  {
+    idDashboard: "2",
+    cajaChica: 1500,
+    ingresosTotales: 6000,
+    egresosTotales: 2500,
+    dineroContado: 4800,
+    diferencia: 1500 + 6000 - 2500 - 4800,
+    resumenVentas: {
+      factura: { totalMonto: 3500, cantidad: 12 },
+      boleta: { totalMonto: 2500, cantidad: 10 },
+      ventasCanceladas: { cantidad: 2 },
+    },
+    totalClientes: 65,
+    arqueoCaja: {
+      billetes: 4000,
+      monedas: 800,
+      diferencia: 1500 + 6000 - 2500 - (4000 + 800),
+    },
+  },
+  {
+    idDashboard: "3",
+    cajaChica: 800,
+    ingresosTotales: 4000,
+    egresosTotales: 1500,
+    dineroContado: 3100,
+    diferencia: 800 + 4000 - 1500 - 3100,
+    resumenVentas: {
+      factura: { totalMonto: 2000, cantidad: 7 },
+      boleta: { totalMonto: 1000, cantidad: 5 },
+      ventasCanceladas: { cantidad: 1 },
+    },
+    totalClientes: 40,
+    arqueoCaja: {
+      billetes: 2500,
+      monedas: 600,
+      diferencia: 800 + 4000 - 1500 - (2500 + 600),
+    },
+  },
+  {
+    idDashboard: "4",
+    cajaChica: 1200,
+    ingresosTotales: 5500,
+    egresosTotales: 2200,
+    dineroContado: 4300,
+    diferencia: 1200 + 5500 - 2200 - 4300,
+    resumenVentas: {
+      factura: { totalMonto: 3200, cantidad: 11 },
+      boleta: { totalMonto: 1800, cantidad: 9 },
+      ventasCanceladas: { cantidad: 2 },
+    },
+    totalClientes: 55,
+    arqueoCaja: {
+      billetes: 3600,
+      monedas: 700,
+      diferencia: 1200 + 5500 - 2200 - (3600 + 700),
+    },
+  },
+  {
+    idDashboard: "5",
+    cajaChica: 2000,
+    ingresosTotales: 7000,
+    egresosTotales: 3000,
+    dineroContado: 5800,
+    diferencia: 2000 + 7000 - 3000 - 5800,
+    resumenVentas: {
+      factura: { totalMonto: 4000, cantidad: 15 },
+      boleta: { totalMonto: 2500, cantidad: 10 },
+      ventasCanceladas: { cantidad: 4 },
+    },
+    totalClientes: 75,
+    arqueoCaja: {
+      billetes: 4200,
+      monedas: 1600,
+      diferencia: 2000 + 7000 - 3000 - (4200 + 1600),
+    },
+  },
 ];
 
 console.log("Script de cajas cargado");
@@ -81,7 +157,7 @@ function initDashboard(id, pettyCash, title, data) {
   ).textContent = `${data.totalClientes} clientes`;
   // Datos para el grafico pastel
   const ctx = document.getElementById("my-pie-chart").getContext("2d");
-  const miGrafico = new Chart(ctx, {
+  new Chart(ctx, {
     type: "pie",
     data: {
       labels: ["Factura", "Boleta"],
@@ -103,7 +179,7 @@ function initDashboard(id, pettyCash, title, data) {
     },
     options: {
       responsive: true,
-      maintainAspectRatio: false, // Permite que el gráfico se ajuste mejor
+      maintainAspectRatio: false,
     },
   });
 
@@ -202,7 +278,36 @@ function initCashRegister() {
         }</div>
         <div class="register-divider"></div>
         <div class="register-sales">Suma de venta: S/ 3,200.00</div>
+        <div class="info-tooltip" style="display: none;">
+          <div class="info-title">Revisión Rápida</div>
+          <div class="info-divider"></div>
+          <div class="info-text">Caja Chica: ${formatCurrency(
+            dashboardData.find(
+              (dashboard) => dashboard.idDashboard === register.idCaja
+            ).cajaChica
+          )}</div>
+          <div class="info-text">${
+            isOpen ? `Abierto por: ` : `Fue abierto por: `
+          } Juan Perez</div>
+          <div class="info-text">${
+            isOpen ? `Hora de apertura: ` : `Se aperturó: `
+          } 10:30 am</div>
+        </div>
       `;
+
+    registerCard.addEventListener("mouseenter", function () {
+      const tooltip = this.querySelector(".info-tooltip");
+      if (tooltip) {
+        tooltip.style.display = "block";
+      }
+    });
+
+    registerCard.addEventListener("mouseleave", function () {
+      const tooltip = this.querySelector(".info-tooltip");
+      if (tooltip) {
+        tooltip.style.display = "none";
+      }
+    });
 
     registerCard.addEventListener("click", function () {
       console.log("Caja clickeada:", this.dataset.Nombre);
@@ -267,6 +372,7 @@ function initCashRegister() {
 
       if (pettyCash) {
         // Guardar en localStorage
+        console.log("Datos de apertura:", { currentRegisterId });
         localStorage.setItem(`pettyCash_${currentRegisterId}`, pettyCash);
         localStorage.setItem(`comment_${currentRegisterId}`, comment);
         localStorage.setItem(
@@ -283,14 +389,16 @@ function initCashRegister() {
 
         // Actualizar la interfaz
         const registerCard = document.querySelector(
-          `.register-card[data-idCaja="${currentRegisterId}"]`
+          `.register-card[data-id-caja="${currentRegisterId}"]`
         );
         registerCard.classList.add("open");
-        registerCard.querySelector(
-          ".register-title"
-        ).textContent = `La Caja ${currentRegisterTitle} está Aperturada`;
-        registerCard.querySelector(".register-title").style.color = "#FFFFFF";
-        registerCard.querySelector(".register-branch").style.color = "#FFFFFF";
+
+        showNotification(
+          `Caja ${currentRegisterTitle} aperturó con la fecha: ${formatDateLong(
+            new Date(openDateInput.value)
+          )}`,
+          5000
+        );
 
         console.log("Caja aperturada exitosamente:", currentRegisterTitle);
       } else {
@@ -328,8 +436,8 @@ function formatCurrency(value) {
 }
 
 // Función auxiliar para formatear la fecha actual
-function formatDateLong() {
-  const date = new Date();
+function formatDateLong(date) {
+  if (!date) date = new Date();
   const options = {
     weekday: "long",
     day: "numeric",
@@ -339,4 +447,24 @@ function formatDateLong() {
   };
 
   return new Intl.DateTimeFormat("es-ES", options).format(date);
+}
+
+// Función auxiliar para mostrar notificaciones
+function showNotification(message, duration) {
+  const notification = document.getElementById("notification");
+  const notificationMessage = document.getElementById("notification-message");
+
+  notificationMessage.textContent = message;
+  notification.classList.remove("hidden");
+
+  setTimeout(() => {
+    notification.classList.add("show");
+  }, 10);
+
+  setTimeout(() => {
+    notification.classList.remove("show");
+    setTimeout(() => {
+      notification.classList.add("hidden");
+    }, 500);
+  }, duration || 3000);
 }

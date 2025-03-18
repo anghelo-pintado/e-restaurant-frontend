@@ -9,6 +9,31 @@
     gap: 1rem;
 }
 
+.dashboard-header #btn-exit {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    background: #F2F4F5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.dashboard-header #btn-exit:hover {
+    opacity: 0.9;
+}
+
+.dashboard-header #btn-exit svg {
+    transition: transform 0.3s; 
+}
+  
+.dashboard-header #btn-exit:hover svg {
+    transform: translateX(-2.5px);
+}
+
 .card {
     padding: 1em;
     min-block-size: 7em;
@@ -33,6 +58,10 @@
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+.card .card-header .card-icon .dashboard-icon {
+    color: #919598;
 }
 
 .card .card-header .card-title {
@@ -68,16 +97,21 @@
     line-height: normal;
 }
 
+.card-6 .chart #my-pie-chart {
+    width: auto;
+    height: auto;
+}
+
 .card-8 .input-group {
     display: grid;
     gap: 1em;
-    width: 100%; /* Asegura que el grupo de inputs ocupe todo el ancho disponible */
-    grid-template-columns: 1fr; /* Por defecto, 1 columna en móvil */
+    width: 100%; 
+    grid-template-columns: 1fr; 
 }
 
 .card-8 .input-group .card-input,
 .card-8 .input-group .card-output {
-    width: 100%; /* Asegura que cada input/output ocupe el ancho completo de su celda */
+    width: 100%; 
 }
 
 .card-8 .input-group .card-input label,
@@ -89,7 +123,7 @@
 
 .card-8 .input-group .card-input input {
     width: 100%;
-    box-sizing: border-box; /* Importante: incluye padding y border en el ancho total */
+    box-sizing: border-box; 
     padding: 0.75rem;
     border: 2px solid #ebecf0;
     border-radius: 8px;
@@ -106,25 +140,25 @@
     font-size: 16px;
     font-family: "Delm", sans-serif;
     background-color: #f9f9f9;
-    pointer-events: none; /* Evita que el usuario interactúe con él */
+    pointer-events: none; 
 }
 
-/* Estados de color para el output */
+
 .card-8 .input-group .card-output .output-match {
-    background-color: #ecfdf5; /* Fondo verde claro */
-    color: #10b981; /* Texto verde */
+    background-color: #ecfdf5; 
+    color: #10b981;
     border-color: #10b981;
 }
 
 .card-8 .input-group .card-output .output-surplus {
-    background-color: #fffbeb; /* Fondo amarillo claro */
-    color: #f59e0b; /* Texto amarillo */
+    background-color: #fffbeb; 
+    color: #f59e0b; 
     border-color: #f59e0b;
 }
 
 .card-8 .input-group .card-output .output-deficit {
-    background-color: #fef2f2; /* Fondo rojo claro */
-    color: #ef4444; /* Texto rojo */
+    background-color: #fef2f2; 
+    color: #ef4444;
     border-color: #ef4444;
 }
 
@@ -160,55 +194,45 @@
     background: #DC3545;
 }
 
-
-/* Pantallas medianas (tablets) */
 @media(width >= 768px) {
     .dashboard-main {
         grid-template-columns: repeat(3, 1fr);
     }
     
-    /* Sección 1: Cards 1-5 */
     .card-1, .card-2, .card-3, .card-4, .card-5 {
-        grid-column: span 1; /* Cada card ocupa 1 columna */
+        grid-column: span 1; /
     }
     
-    /* Sección 2: Cards 6-7 */
     .card-6 {
-        grid-column: 1 / span 2; /* Ocupa 2 columnas */
+        grid-column: 1 / span 2; 
     }
     
     .card-7 {
-        grid-column: 3 / span 1; /* Ocupa 1 columna */
+        grid-column: 3 / span 1;
     }
     
-    /* Sección 3: Cards 8-9 */
     .card-8 {
-        grid-column: 1 / span 2; /* Ocupa 2 columnas */
+        grid-column: 1 / span 2; 
     }
 
     .card-8 .input-group {
-        grid-template-columns: repeat(2, 1fr); /* 2 columnas en tablets */
+        grid-template-columns: repeat(2, 1fr); 
     }
-    
-    /* El campo de output ocupará toda una fila en tablets */
+
     .card-8 .input-group .card-output {
         grid-column: span 2;
     }
     
     .card-9 {
-        grid-column: 3 / span 1; /* Ocupa 1 columna */
+        grid-column: 3 / span 1; 
     }
 }
 
-/* Pantallas grandes (desktop) */
 @media(width >= 992px) {
     .dashboard-main {
         grid-template-columns: repeat(5, 1fr);
     }
-    
-    /* Sección 1: Cards 1-5 se distribuyen automáticamente */
-    
-    /* Sección 2: Cards 6-7 */
+
     .card-6 {
         grid-row-start: 2;
         grid-row-end: 3;
@@ -223,7 +247,6 @@
         grid-column-end: 6;
     }
     
-    /* Sección 3: Cards 8-9 */
     .card-8 {
         grid-row-start: 3;
         grid-row-end: 4;
@@ -232,10 +255,9 @@
     }
 
     .card-8 .input-group {
-        grid-template-columns: repeat(3, 1fr); /* 3 columnas en desktop */
+        grid-template-columns: repeat(3, 1fr); 
     }
     
-    /* El campo de output ya no ocupa toda la fila en desktop */
     .card-8 .input-group .card-output {
         grid-column: span 1;
     }
