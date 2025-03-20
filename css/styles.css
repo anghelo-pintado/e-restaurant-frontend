@@ -194,6 +194,7 @@ main {
         position: fixed;
         top: unset;
         bottom: 0;
+        z-index: 100;
 
         > ul {
             padding: 0;
