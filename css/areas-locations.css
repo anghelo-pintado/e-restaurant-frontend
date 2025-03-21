@@ -94,12 +94,15 @@
 }
 
 .section-1 .section-card .section-card-info .print {
+    display: flex;
+    align-items: center;
+    gap: 4px;
     color: #000;
     font-family: Roboto;
     font-size: 14px;
     font-style: normal;
     font-weight: 400;
-    line-height: normal;
+    line-height: normal; 
 }
 
 .section-1 .section-card .section-card-actions .switch {
@@ -146,7 +149,7 @@
 }
 
 .section-1 .section-card .section-card-actions button {
-    padding: 1em;
+    padding: 0.5em;
     border-radius: 10px;
     border: none;
     background: none;
@@ -244,3 +247,19 @@
         grid-template-columns: repeat(2, 1fr);
     }
 }
+
+@media (max-width: 767px) {
+    button span {
+      display: none;
+    }
+    
+    .areas-locations-header .actions button, 
+    .section-2 .section-header button {
+      padding: 0.5em; 
+    }
+    
+    .areas-locations-header .actions button i.material-icons,
+    .section-2 .section-header button i.material-icons {
+      margin: 0 auto;
+    }
+  }
